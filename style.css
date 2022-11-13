@@ -1,0 +1,32 @@
+:root {
+  --canvas-width: 960px;
+  --square-width: 10px;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+.canvas {
+  display: flex;
+  width: var(--canvas-width);
+  height: var(--canvas-width);
+  flex-wrap: wrap;
+}
+
+.square {
+  width: var(--square-width);
+  height: var(--square-width);
+  background-color: red;
+  border: 0.1px solid black;
+}
+
+.draw {
+  background-color: blue;
+}
