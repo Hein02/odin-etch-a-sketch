@@ -25,6 +25,12 @@ class View {
     this.sqPerSideInput = document.querySelector('.js-sq-per-side');
     this.createBtn = document.querySelector('.js-create-btn');
     this.randomBtn = document.querySelector('.js-random-btn');
+    this.enabledDraw = false;
+    document.body.addEventListener('keypress', (e) => {
+      if (e.code === 'Space') {
+        this.enabledDraw = !this.enabledDraw;
+      }
+    });
   }
 
   bindEvent(el, handler, type, ...options) {
@@ -59,22 +65,22 @@ class View {
     let frag = document.createDocumentFragment();
     for (let i = 0; i < totalSq; i += 1) {
       let el = this.createEl('div', 'square');
-      this.bindEvent(el, this.draw(style), 'mouseover', {
-        once: true,
-      });
+      this.bindEvent(el, this.draw(style), 'mouseover');
       frag.append(el);
     }
     return frag;
   }
 
   draw = (style) => (e) => {
-    if (style === 'random') {
-      const r = Math.floor(Math.random() * 256);
-      const g = Math.floor(Math.random() * 256);
-      const b = Math.floor(Math.random() * 256);
-      e.target.style.backgroundColor = `rgb(${r},${g},${b})`;
-    } else {
-      e.target.classList.add('draw');
+    if (this.enabledDraw) {
+      if (style === 'random') {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        e.target.style.backgroundColor = `rgb(${r},${g},${b})`;
+      } else {
+        e.target.classList.add('draw');
+      }
     }
   };
 
@@ -112,11 +118,25 @@ class Controller {
 
   handleSqPerSideChange = (event) => {
     const sqPerSide = Number(event.target.value);
-    if (!Number.isInteger(sqPerSide)) return;
+    if (!Number.isInteger(sqPerSide)) {
+      alert('Must be an integer.');
+      this.view.clearInput(this.view.sqPerSideInput);
+      return;
+    }
+    if (sqPerSide > 100) {
+      alert('Cannot exceed 100.');
+      this.view.clearInput(this.view.sqPerSideInput);
+      return;
+    }
     this.model.setup(sqPerSide);
   };
 
-  handleCreateCanvas = () => {
+  handleCreateCanvas = (e) => {
+    e.target.blur();
+    if (!this.view.sqPerSideInput.value) {
+      alert('Cannot be empty.');
+      return;
+    }
     this.view.clearInput(this.view.sqPerSideInput);
     this.bindCanvas();
     this.view.renderCanvas(this.model.totalSq, this.model.style);

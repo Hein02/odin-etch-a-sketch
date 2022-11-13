@@ -14,18 +14,27 @@ html {
   box-sizing: inherit;
 }
 
+body {
+  background-color: rgb(255, 248, 248);
+}
 .canvas {
   display: flex;
   width: var(--canvas-width);
   height: var(--canvas-width);
   flex-wrap: wrap;
+  box-shadow: 0px 0px 15px 1px rgb(138, 138, 138);
+}
+
+.eas__canvas {
+  margin: 32px;
 }
 
 .square {
   width: var(--square-width);
   height: var(--square-width);
   background-color: white;
-  border: 0.1px solid black;
+  border-right: 0.01px dotted rgb(243, 243, 243);
+  border-bottom: 0.01px dotted rgb(243, 243, 243);
 }
 
 .draw {

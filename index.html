@@ -9,15 +9,19 @@
     <title>Odin's Etch-a-Sketch</title>
   </head>
   <body>
-    <label for="sqs-per-side">Number of squares per side</label>
-    <input
-      type="text"
-      name="sq-per-side"
-      id="sq-per-side"
-      class="js-sq-per-side"
-    />
-    <input type="button" value="Create" class="button js-create-btn" />
-    <input type="button" value="Random color" class="js-random-btn" />
-    <div class="canvas js-canvas"></div>
+    <main class="eas">
+      <h1 class="title">Etch-A-Sketch</h1>
+      <label for="sqs-per-side">Number of squares per side</label>
+      <input
+        type="text"
+        name="sq-per-side"
+        id="sq-per-side"
+        class="js-sq-per-side"
+      />
+      <input type="button" value="Create" class="button js-create-btn" />
+      <input type="button" value="Random color" class="js-random-btn" />
+      <div class="canvas eas__canvas js-canvas"></div>
+      <div>Press space once to start drawing. press space again to stop.</div>
+    </main>
   </body>
 </html>
