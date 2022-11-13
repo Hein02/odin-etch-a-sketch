@@ -4,7 +4,7 @@ class Model {
     this.sqWidth = 0;
     this.totalSq = 0;
     this.sqPerSide = 0;
-    this.sqColor = 'blue';
+    this.style = 'black';
   }
 
   setup(sqPerSide = 16) {
@@ -13,8 +13,8 @@ class Model {
     this.totalSq = Math.pow(this.sqPerSide, 2);
   }
 
-  setSqColor(color) {
-    this.sqColor = color;
+  setStyle(style) {
+    this.style = style;
   }
 }
 
@@ -106,7 +106,7 @@ class Controller {
     );
     this.view.bindEvent(this.view.createBtn, this.handleCreateCanvas, 'click');
     this.view.bindEvent(this.view.randomBtn, this.handleRandomColor, 'click');
-    this.view.renderCanvas(this.model.totalSq);
+    this.view.renderCanvas(this.model.totalSq, this.model.style);
     this.bindCanvas();
   }
 
@@ -119,21 +119,21 @@ class Controller {
   handleCreateCanvas = () => {
     this.view.clearInput(this.view.sqPerSideInput);
     this.bindCanvas();
-    this.view.renderCanvas(this.model.totalSq);
+    this.view.renderCanvas(this.model.totalSq, this.model.style);
   };
 
   handleRandomColor = () => {
-    this.model.setSqColor('random');
-    this.view.renderCanvas(this.model.totalSq, this.model.sqColor);
+    this.model.setStyle('random');
+    this.view.renderCanvas(this.model.totalSq, this.model.style);
   };
 
   bindCanvas() {
     const canvasWidth = `${this.model.canvasWidth}px`;
     const sqWidth = `${this.model.sqWidth}px`;
-    const sqColor = this.model.sqColor;
+    const style = this.model.style;
     this.view.setCustomProperty('--canvas-width', canvasWidth);
     this.view.setCustomProperty('--square-width', sqWidth);
-    this.view.setCustomProperty('--square-color', sqColor);
+    this.view.setCustomProperty('--square-color', style);
   }
 }
 
