@@ -131,7 +131,8 @@ class Controller {
     this.model.setup(sqPerSide);
   };
 
-  handleCreateCanvas = () => {
+  handleCreateCanvas = (e) => {
+    e.target.blur();
     if (!this.view.sqPerSideInput.value) {
       alert('Cannot be empty.');
       return;
@@ -141,12 +142,14 @@ class Controller {
     this.view.renderCanvas(this.model.totalSq, this.model.mode);
   };
 
-  handleRandomColor = () => {
+  handleRandomColor = (e) => {
+    e.target.blur();
     this.model.setMode('random');
     this.view.renderCanvas(this.model.totalSq, this.model.mode);
   };
 
-  handleNormal = () => {
+  handleNormal = (e) => {
+    e.target.blur();
     this.model.setMode('default');
     this.view.renderCanvas(this.model.totalSq, this.model.mode);
   };
