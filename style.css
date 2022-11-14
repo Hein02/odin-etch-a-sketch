@@ -17,6 +17,14 @@ html {
 body {
   background-color: rgb(255, 248, 248);
 }
+
+.eas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
 .canvas {
   display: flex;
   width: var(--canvas-width);

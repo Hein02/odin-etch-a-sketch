@@ -5,6 +5,7 @@ class Model {
     this.totalSq = 0;
     this.sqPerSide = 0;
     this.style = 'black';
+    this.mode = 'default';
   }
 
   setup(sqPerSide = 16) {
@@ -13,8 +14,8 @@ class Model {
     this.totalSq = Math.pow(this.sqPerSide, 2);
   }
 
-  setStyle(style) {
-    this.style = style;
+  setMode(mode) {
+    this.mode = mode;
   }
 }
 
@@ -26,6 +27,7 @@ class View {
     this.sqPerSideInput = document.querySelector('.js-sq-per-side');
     this.createBtn = document.querySelector('.js-create-btn');
     this.randomBtn = document.querySelector('.js-random-btn');
+    this.defaultBtn = document.querySelector('.js-default-btn');
     this.enabledDraw = false;
   }
 
@@ -57,19 +59,19 @@ class View {
     }
   }
 
-  createSq(totalSq, style) {
+  createSq(totalSq, mode) {
     let frag = document.createDocumentFragment();
     for (let i = 0; i < totalSq; i += 1) {
       let el = this.createEl('div', 'square');
-      this.bindEvent(el, this.draw(style), 'mouseover');
+      this.bindEvent(el, this.draw(mode), 'mouseover');
       frag.append(el);
     }
     return frag;
   }
 
-  draw = (style) => (e) => {
+  draw = (mode) => (e) => {
     if (this.enabledDraw) {
-      if (style === 'random') {
+      if (mode === 'random') {
         const r = Math.floor(Math.random() * 256);
         const g = Math.floor(Math.random() * 256);
         const b = Math.floor(Math.random() * 256);
@@ -80,8 +82,8 @@ class View {
     }
   };
 
-  renderCanvas(totalSq, style) {
-    const squares = this.createSq(totalSq, style);
+  renderCanvas(totalSq, mode) {
+    const squares = this.createSq(totalSq, mode);
     this.removeChildren(this.canvas);
     this.renderEl(this.canvas, squares);
   }
@@ -108,8 +110,9 @@ class Controller {
     );
     this.view.bindEvent(this.view.createBtn, this.handleCreateCanvas, 'click');
     this.view.bindEvent(this.view.randomBtn, this.handleRandomColor, 'click');
+    this.view.bindEvent(this.view.defaultBtn, this.handleNormal, 'click');
     this.view.bindEvent(this.view.body, this.toggleDraw, 'keypress');
-    this.view.renderCanvas(this.model.totalSq, this.model.style);
+    this.view.renderCanvas(this.model.totalSq, this.model.mode);
     this.bindCanvas();
   }
 
@@ -135,12 +138,17 @@ class Controller {
     }
     this.view.clearInput(this.view.sqPerSideInput);
     this.bindCanvas();
-    this.view.renderCanvas(this.model.totalSq, this.model.style);
+    this.view.renderCanvas(this.model.totalSq, this.model.mode);
   };
 
   handleRandomColor = () => {
-    this.model.setStyle('random');
-    this.view.renderCanvas(this.model.totalSq, this.model.style);
+    this.model.setMode('random');
+    this.view.renderCanvas(this.model.totalSq, this.model.mode);
+  };
+
+  handleNormal = () => {
+    this.model.setMode('default');
+    this.view.renderCanvas(this.model.totalSq, this.model.mode);
   };
 
   bindCanvas() {
