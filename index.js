@@ -21,16 +21,12 @@ class Model {
 class View {
   constructor() {
     this.root = document.querySelector(':root');
+    this.body = document.body;
     this.canvas = document.querySelector('.js-canvas');
     this.sqPerSideInput = document.querySelector('.js-sq-per-side');
     this.createBtn = document.querySelector('.js-create-btn');
     this.randomBtn = document.querySelector('.js-random-btn');
     this.enabledDraw = false;
-    document.body.addEventListener('keypress', (e) => {
-      if (e.code === 'Space') {
-        this.enabledDraw = !this.enabledDraw;
-      }
-    });
   }
 
   bindEvent(el, handler, type, ...options) {
@@ -112,6 +108,7 @@ class Controller {
     );
     this.view.bindEvent(this.view.createBtn, this.handleCreateCanvas, 'click');
     this.view.bindEvent(this.view.randomBtn, this.handleRandomColor, 'click');
+    this.view.bindEvent(this.view.body, this.toggleDraw, 'keypress');
     this.view.renderCanvas(this.model.totalSq, this.model.style);
     this.bindCanvas();
   }
@@ -131,8 +128,7 @@ class Controller {
     this.model.setup(sqPerSide);
   };
 
-  handleCreateCanvas = (e) => {
-    e.target.blur();
+  handleCreateCanvas = () => {
     if (!this.view.sqPerSideInput.value) {
       alert('Cannot be empty.');
       return;
@@ -155,6 +151,12 @@ class Controller {
     this.view.setCustomProperty('--square-width', sqWidth);
     this.view.setCustomProperty('--square-color', style);
   }
+
+  toggleDraw = (e) => {
+    if (e.code === 'Space') {
+      this.view.enabledDraw = !this.view.enabledDraw;
+    }
+  };
 }
 
 const app = new Controller(new Model(window), new View());
