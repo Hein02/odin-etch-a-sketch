@@ -43,6 +43,29 @@ body {
   background-color: white;
   border-right: 0.01px dotted rgb(243, 243, 243);
   border-bottom: 0.01px dotted rgb(243, 243, 243);
+  cursor: crosshair;
+}
+
+.sq-per-side__input {
+  width: 40px;
+  height: 32px;
+  padding: 0 8px;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  border: none;
+  min-width: 150px;
+  min-height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:active,
+.button:focus {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .draw {

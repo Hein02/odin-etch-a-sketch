@@ -11,13 +11,13 @@
   <body>
     <main class="eas">
       <h1 class="title">Etch-A-Sketch</h1>
-      <span>
+      <span class="sq-per-side">
         <label for="sqs-per-side">Number of squares per side: </label>
         <input
           type="text"
           name="sq-per-side"
           id="sq-per-side"
-          class="js-sq-per-side"
+          class="sq-per-side__input js-sq-per-side"
         />
         <input
           type="button"
@@ -26,8 +26,16 @@
         />
       </span>
       <div>
-        <input type="button" value="Default mode" class="js-default-btn" />
-        <input type="button" value="Random color mode" class="js-random-btn" />
+        <input
+          type="button"
+          value="Default mode"
+          class="button js-default-btn"
+        />
+        <input
+          type="button"
+          value="Random color mode"
+          class="button js-random-btn"
+        />
       </div>
       <div>Press space once to start drawing. press space again to pause.</div>
       <div class="canvas eas__canvas js-canvas"></div>
